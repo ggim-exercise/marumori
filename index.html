@@ -26,6 +26,10 @@ var map = new mapboxgl.Map({
   style: 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json',
   center: [140.707220, 37.856550], 
   zoom: 12,
+  maxBounds: [
+    [139.0, 37.0],
+    [142.5, 38.6]
+  ],
   localIdeographFontFamily: ['MS Gothic', 'Hiragino Kaku Gothic Pro', 'sans-serif']
 });
 

@@ -30,6 +30,23 @@ var map = new mapboxgl.Map({
   minZoom: 4,
   localIdeographFontFamily: ['MS Gothic', 'Hiragino Kaku Gothic Pro', 'sans-serif']
 });
+  
+map.addSource('1020do', {
+  type: 'raster',
+  tiles: ['https://maps.gsi.go.jp/xyz/20191012typhoon19_marumori_1020do_sokuho/{z}/{x}/{y}.png'],
+  tileSize: 256,
+  minzoom: 10,
+  maxzoom: 18,
+  attribution: 'GSI'
+})
+  
+map.addLayer({
+  id: '1020do',
+  source: '1020do',
+  type: 'raster',
+  minZoom: 10,
+  maxZoom: 24
+}, 'gsibv-vectortile-layer-1')
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.addControl(new mapboxgl.ScaleControl() );

@@ -46,6 +46,76 @@ map.on('load', function() {
     minZoom: 10,
     maxZoom: 24
   }, 'gsibv-vectortile-layer-1')
+
+  map.addSource('1021do', {
+    type: 'raster',
+    tiles: ['https://maps.gsi.go.jp/xyz/20191012typhoon19_marumori_1021do_sokuho/{z}/{x}/{y}.png'],
+    tileSize: 256,
+    minzoom: 10,
+    maxzoom: 18,
+    attribution: 'GSI'
+  })
+
+  map.addLayer({
+    id: '1021do',
+    source: '1021do',
+    type: 'raster',
+    minZoom: 10,
+    maxZoom: 25
+  }, 'gsibv-vectortile-layer-1')
+
+  map.addSource('geojson', {
+    type: 'geojson',
+    data: 'https://maps.gsi.go.jp/xyz/20191012typhoon19_syamenhoukai_taiseki/2/3/1.geojson'
+  })
+  
+  map.addLayer({
+    id: 'polygons',
+    type: 'fill',
+    source: 'geojson',
+    filter: [
+      'match',
+      [
+        'geometry-type'
+      ],
+      [
+        'Polygon',
+        'MultiPolygon'
+      ],
+      true,
+      false
+    ],
+    paint: {
+      'fill-color': [
+        'get',
+        '_fillColor'
+      ],
+      'fill-opacity': [
+        'get',
+        '_fillOpacity'
+      ]
+    }
+  })
+
+  map.addLayer({
+    id: 'lines',
+    type: 'line',
+    source: 'geojson',
+    paint: {
+      'line-color': [
+        'get',
+        '_color'
+      ],
+      'line-opacity': [
+        'get',
+        'opacity'
+      ],
+      'line-width': [
+        'get',
+        '_weight'
+      ] 
+    }
+  })
 })
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
